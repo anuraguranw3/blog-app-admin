@@ -35,6 +35,7 @@ const App = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${API_BASE_URL}/api/users/signup`, signUpForm, {
+        withCredentials: true,
         headers: {
           'Content-Type': "application/json",
         }
@@ -62,6 +63,7 @@ const App = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${API_BASE_URL}/api/users/login`, loginForm, {
+        withCredentials: true,
         headers: {
           "Content-Type": "application/json"
         }
