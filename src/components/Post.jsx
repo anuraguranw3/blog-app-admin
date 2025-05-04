@@ -14,13 +14,15 @@ const Post = ({ user, setMessage }) => {
 
   const { id } = useParams();
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
 
   const getPostById = async () => {
     const postId = id;
     setLoading(true);
     try {
-      const response = await axios.get(`/api/admin/posts/${postId}`);
+      const response = await axios.get(`${API_BASE_URL}/api/admin/posts/${postId}`);
       setPost(response.data.data);
     } catch (err) {
       console.log(err);
@@ -34,7 +36,7 @@ const Post = ({ user, setMessage }) => {
     const postId = id;
     try {
       console.log("trying to fetch comments");
-      const response = await axios.get(`/api/posts/${postId}/comments`);
+      const response = await axios.get(`${API_BASE_URL}/api/posts/${postId}/comments`);
       setComments(response.data.data);
     } catch (err) {
       console.log("Failed to fetch comments: ", err);
@@ -49,7 +51,7 @@ const Post = ({ user, setMessage }) => {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/posts/${post.id}`, { comment }, {
+      const response = await axios.post(`${API_BASE_URL}/api/posts/${post.id}`, { comment }, {
         withCredentials: true,
       });
       setMessage(response.data.message);
@@ -63,7 +65,7 @@ const Post = ({ user, setMessage }) => {
 
   const publishPost = async () => {
     try {
-      const response = await axios.patch(`/api/admin/posts/${post.id}/publish`);
+      const response = await axios.patch(`${API_BASE_URL}/api/admin/posts/${post.id}/publish`);
       setMessage(response.data.message);
       getPostById();
     } catch (err) {
@@ -74,7 +76,7 @@ const Post = ({ user, setMessage }) => {
 
   const unpublishPost = async () => {
     try {
-      const response = await axios.patch(`/api/admin/posts/${post.id}/unpublish`);
+      const response = await axios.patch(`${API_BASE_URL}/api/admin/posts/${post.id}/unpublish`);
       setMessage(response.data.message);
       getPostById();
     } catch (err) {
@@ -85,7 +87,7 @@ const Post = ({ user, setMessage }) => {
 
   const deletePost = async () => {
     try {
-      const response = await axios.delete(`/api/admin/posts/${post.id}`);
+      const response = await axios.delete(`${API_BASE_URL}/api/admin/posts/${post.id}`);
       setMessage(response.data.message);
       navigate("/");
     } catch (err) {

@@ -25,6 +25,8 @@ const App = () => {
 
   const navigate = useNavigate();
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+
   const handleSignUpFormChange = (e) => {
     setSignUpForm({ ...signUpForm, [e.target.name]: e.target.value });
   };
@@ -32,7 +34,7 @@ const App = () => {
   const handleSignUpFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/users/signup", signUpForm, {
+      const response = await axios.post(`${API_BASE_URL}/api/users/signup`, signUpForm, {
         headers: {
           'Content-Type': "application/json",
         }
@@ -59,7 +61,7 @@ const App = () => {
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/users/login", loginForm, {
+      const response = await axios.post(`${API_BASE_URL}/api/users/login`, loginForm, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -81,7 +83,7 @@ const App = () => {
     e.preventDefault();
     console.log("logout initiated");
     try {
-      const response = await axios.post("/api/users/logout", {
+      const response = await axios.post(`${API_BASE_URL}/api/users/logout`, {
         withCredentials: true,
       });
       setMessage(response.data.message);
@@ -95,7 +97,7 @@ const App = () => {
 
   const getUserInfo = async () => {
     try {
-      const response = await axios.get("/api/users/me", {
+      const response = await axios.get(`${API_BASE_URL}/api/users/me`, {
         withCredentials: true,
       });
       setUser(response.data);

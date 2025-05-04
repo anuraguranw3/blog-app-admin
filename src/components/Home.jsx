@@ -9,10 +9,12 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/api/admin/posts");
+      const response = await axios.get(`${API_BASE_URL}/api/admin/posts`);
       setPosts(response.data.data);
       setLoading(false);
     } catch (err) {

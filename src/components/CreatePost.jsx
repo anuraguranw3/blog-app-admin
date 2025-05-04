@@ -11,6 +11,8 @@ const CreatePost = ({ setMessage }) => {
 
   const navigate = useNavigate();
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+
   const handlePostFormChange = (e) => {
     setPostForm({ ...postForm, [e.target.name]: e.target.value });
   };
@@ -18,7 +20,7 @@ const CreatePost = ({ setMessage }) => {
   const handlePostFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/admin/posts", postForm, {
+      const response = await axios.post(`${API_BASE_URL}/api/admin/posts`, postForm, {
         withCredentials: true,
       });
       setMessage(response.data.message);
